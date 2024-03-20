@@ -9,6 +9,8 @@
     <x:Property Name="out_pass_영어" Type="OutArgument(x:Int32)" />
     <x:Property Name="out_pass_수학" Type="OutArgument(x:Int32)" />
     <x:Property Name="io_dt_불합여부" Type="InOutArgument(sd:DataTable)" />
+    <x:Property Name="in_dt_output" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="out_list_과목" Type="OutArgument(scg:List(x:String))" />
   </x:Members>
   <this:_03_DT결합.in_dt_input>
     <InArgument x:TypeArguments="sd:DataTable" />
@@ -16,10 +18,13 @@
   <this:_03_DT결합.in_dt_기준>
     <InArgument x:TypeArguments="sd:DataTable" />
   </this:_03_DT결합.in_dt_기준>
+  <this:_03_DT결합.in_dt_output>
+    <InArgument x:TypeArguments="sd:DataTable" />
+  </this:_03_DT결합.in_dt_output>
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>988,3682</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1171,3637</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>_03_DT결합_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -109,28 +114,138 @@
       <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="_03_DT결합" sap:VirtualizedContainerService.HintSize="976,3617" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="_03_DT결합" sap:VirtualizedContainerService.HintSize="976,3572" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_dt_input]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="914,3529" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="914,65" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="무시된 액티비티" sap:VirtualizedContainerService.HintSize="496,190" sap2010:WorkflowViewState.IdRef="Sequence_29">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign DisplayName="과목리스트생성 | Assign" sap:VirtualizedContainerService.HintSize="434,105" sap2010:WorkflowViewState.IdRef="Assign_7">
+            <Assign.To>
+              <OutArgument x:TypeArguments="scg:List(x:String)">[out_list_과목]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="scg:List(x:String)">[(From row in in_dt_기준.AsEnumerable Select Convert.ToString(row("과목"))).ToList]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </ui:CommentOut.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:CommentOut>
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="914,65" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="무시된 액티비티" sap:VirtualizedContainerService.HintSize="784,1232" sap2010:WorkflowViewState.IdRef="Sequence_30">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_dt_input]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="722,1148" sap2010:WorkflowViewState.IdRef="ForEachRow_7">
+            <ui:ForEachRow.Body>
+              <ActivityAction x:TypeArguments="sd:DataRow">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow_input" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="본문" sap:VirtualizedContainerService.HintSize="688,961" sap2010:WorkflowViewState.IdRef="Sequence_23">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="국어, 영어, 수학" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="626,876" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[out_list_과목]">
+                    <ui:ForEach.Body>
+                      <ActivityAction x:TypeArguments="x:String">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="x:String" Name="currentText" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="본문" sap:VirtualizedContainerService.HintSize="592,658" sap2010:WorkflowViewState.IdRef="Sequence_24">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <If Condition="[string.IsNullOrEmpty(CurrentRow_input(&quot;out_list_과목&quot;).ToString.Trim) = false]" sap:VirtualizedContainerService.HintSize="530,573" sap2010:WorkflowViewState.IdRef="If_12">
+                            <If.Then>
+                              <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="496,312" sap2010:WorkflowViewState.IdRef="Sequence_25">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <Assign sap:VirtualizedContainerService.HintSize="434,122" sap2010:WorkflowViewState.IdRef="Assign_8" />
+                                <Assign sap:VirtualizedContainerService.HintSize="434,105" sap2010:WorkflowViewState.IdRef="Assign_9">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:Int32">[out_total_국어]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:Int32">[Cint(out_total_국어) + 1]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </Sequence>
+                            </If.Then>
+                            <If.Else>
+                              <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="416,100" sap2010:WorkflowViewState.IdRef="Sequence_26">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                              </Sequence>
+                            </If.Else>
+                          </If>
+                        </Sequence>
+                      </ActivityAction>
+                    </ui:ForEach.Body>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:ForEach>
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEachRow.Body>
+          </ui:ForEachRow>
+        </Sequence>
+      </ui:CommentOut.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:CommentOut>
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_dt_input]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="914,3354" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow_input" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="본문" sap:VirtualizedContainerService.HintSize="880,3342" sap2010:WorkflowViewState.IdRef="Sequence_21">
+          <Sequence DisplayName="본문" sap:VirtualizedContainerService.HintSize="880,3167" sap2010:WorkflowViewState.IdRef="Sequence_21">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <If sap2010:Annotation.AnnotationText="- in_dt_input의 국어 컬럼이 비어 있지 않으면, in_dt_기준의 과목 컬럼이 &quot;국어&quot;와 같은지 비교&#xA;- in_dt_기준의 과목 컬럼이 &quot;국어&quot;와 같다면, 국어변수에 +1 씩 증가하고, in_dt_기준의 기준점수보다 크거나 같은지 비교&#xA;- in_dt_기준의 기준점수보다 크다면, 국어_합격 변수에 +1 씩 증가하고, dt_불합여부의 합격여부 컬럼에 &quot;합격&quot;&#xA;- in_dt_기준의 기준점수보다 작다면, dt_불합여부의 합격여부 컬럼에 &quot;불합격&quot;" Condition="[string.IsNullOrEmpty(CurrentRow_input(&quot;국어&quot;).ToString.Trim) = false]" sap:VirtualizedContainerService.HintSize="818,3257" sap2010:WorkflowViewState.IdRef="If_1">
+            <If sap2010:Annotation.AnnotationText="- in_dt_input의 국어 컬럼이 비어 있지 않으면, in_dt_기준의 과목 컬럼이 &quot;국어&quot;와 같은지 비교&#xA;- in_dt_기준의 과목 컬럼이 &quot;국어&quot;와 같다면, 국어변수에 +1 씩 증가하고, in_dt_기준의 기준점수보다 크거나 같은지 비교&#xA;- in_dt_기준의 기준점수보다 크다면, 국어_합격 변수에 +1 씩 증가하고, dt_불합여부의 합격여부 컬럼에 &quot;합격&quot;&#xA;- in_dt_기준의 기준점수보다 작다면, dt_불합여부의 합격여부 컬럼에 &quot;불합격&quot;" Condition="[string.IsNullOrEmpty(CurrentRow_input(&quot;국어&quot;).ToString.Trim) = false]" sap:VirtualizedContainerService.HintSize="818,3082" sap2010:WorkflowViewState.IdRef="If_1">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <If.Then>
@@ -177,7 +292,7 @@
                                     <InArgument x:TypeArguments="x:Int32">[Cint(out_total_국어) + 1]</InArgument>
                                   </Assign.Value>
                                 </Assign>
-                                <If Condition="[CurrentRow_input(&quot;국어&quot;).ToString.Trim &gt;= CurrentRow_기준(&quot;기준점수&quot;).ToString.Trim]" sap:VirtualizedContainerService.HintSize="530,848" sap2010:WorkflowViewState.IdRef="If_3">
+                                <If Condition="[CurrentRow_input(&quot;국어&quot;).ToString.Trim &gt;= CurrentRow_기준(&quot;기준점수&quot;).ToString.Trim]" sap:VirtualizedContainerService.HintSize="434,48" sap2010:WorkflowViewState.IdRef="If_3">
                                   <sap:WorkflowViewStateService.ViewState>
                                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                       <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -232,14 +347,14 @@
                 </Sequence>
               </If.Then>
               <If.Else>
-                <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="784,2151" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="784,1976" sap2010:WorkflowViewState.IdRef="Sequence_20">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <If sap2010:Annotation.AnnotationText="- in_dt_input의 국어 컬럼이 비어 있으면, in_dt_input의 영어 컬럼이 비어 있는지 확인&#xA;- in_dt_input의 영어 컬럼이 비어 있지 않으면, in_dt_기준의 과목 컬럼이 &quot;영어&quot;와 같은지 비교&#xA;- in_dt_기준의 과목 컬럼이 &quot;영어&quot;와 같다면, 영어변수에 +1 씩 증가하고, in_dt_기준의 기준점수보다 크거나 같은지 비교&#xA;- in_dt_기준의 기준점수보다 크다면, 영어_합격 변수에 +1 씩 증가하고, dt_불합여부의 합격여부 컬럼에 &quot;합격&quot;&#xA;- in_dt_기준의 기준점수보다 작다면, dt_불합여부의 합격여부 컬럼에 &quot;불합격&quot;" Condition="[string.IsNullOrEmpty(CurrentRow_input(&quot;영어&quot;).ToString.Trim) = false]" sap:VirtualizedContainerService.HintSize="722,2066" sap2010:WorkflowViewState.IdRef="If_8">
+                  <If sap2010:Annotation.AnnotationText="- in_dt_input의 국어 컬럼이 비어 있으면, in_dt_input의 영어 컬럼이 비어 있는지 확인&#xA;- in_dt_input의 영어 컬럼이 비어 있지 않으면, in_dt_기준의 과목 컬럼이 &quot;영어&quot;와 같은지 비교&#xA;- in_dt_기준의 과목 컬럼이 &quot;영어&quot;와 같다면, 영어변수에 +1 씩 증가하고, in_dt_기준의 기준점수보다 크거나 같은지 비교&#xA;- in_dt_기준의 기준점수보다 크다면, 영어_합격 변수에 +1 씩 증가하고, dt_불합여부의 합격여부 컬럼에 &quot;합격&quot;&#xA;- in_dt_기준의 기준점수보다 작다면, dt_불합여부의 합격여부 컬럼에 &quot;불합격&quot;" Condition="[string.IsNullOrEmpty(CurrentRow_input(&quot;영어&quot;).ToString.Trim) = false]" sap:VirtualizedContainerService.HintSize="722,1891" sap2010:WorkflowViewState.IdRef="If_8">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -347,7 +462,7 @@
                       </Sequence>
                     </If.Then>
                     <If.Else>
-                      <Sequence sap2010:Annotation.AnnotationText="- in_dt_input의 영어 컬럼이 비어 있으면, in_dt_기준의 과목 컬럼이 &quot;수학&quot;과 같은지 비교&#xA;- in_dt_기준의 과목 컬럼이 &quot;수학&quot;과 같다면, 수학변수에 +1 씩 증가하고, in_dt_기준의 기준점수보다 크거나 같은지 비교&#xA;- in_dt_기준의 기준점수보다 크다면, 수학_합격 변수에 +1 씩 증가하고, dt_불합여부의 합격여부 컬럼에 &quot;합격&quot;&#xA;- in_dt_기준의 기준점수보다 작다면, dt_불합여부의 합격여부 컬럼에 &quot;불합격&quot;" DisplayName="Else" sap:VirtualizedContainerService.HintSize="688,945" sap2010:WorkflowViewState.IdRef="Sequence_19">
+                      <Sequence sap2010:Annotation.AnnotationText="- in_dt_input의 영어 컬럼이 비어 있으면, in_dt_기준의 과목 컬럼이 &quot;수학&quot;과 같은지 비교&#xA;- in_dt_기준의 과목 컬럼이 &quot;수학&quot;과 같다면, 수학변수에 +1 씩 증가하고, in_dt_기준의 기준점수보다 크거나 같은지 비교&#xA;- in_dt_기준의 기준점수보다 크다면, 수학_합격 변수에 +1 씩 증가하고, dt_불합여부의 합격여부 컬럼에 &quot;합격&quot;&#xA;- in_dt_기준의 기준점수보다 작다면, dt_불합여부의 합격여부 컬럼에 &quot;불합격&quot;" DisplayName="Else" sap:VirtualizedContainerService.HintSize="608,770" sap2010:WorkflowViewState.IdRef="Sequence_19">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -355,25 +470,25 @@
                             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_dt_기준]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="626,788" sap2010:WorkflowViewState.IdRef="ForEachRow_4">
+                        <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_dt_기준]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="546,583" sap2010:WorkflowViewState.IdRef="ForEachRow_4">
                           <ui:ForEachRow.Body>
                             <ActivityAction x:TypeArguments="sd:DataRow">
                               <ActivityAction.Argument>
                                 <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow_기준" />
                               </ActivityAction.Argument>
-                              <Sequence DisplayName="본문" sap:VirtualizedContainerService.HintSize="592,601" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                              <Sequence DisplayName="본문" sap:VirtualizedContainerService.HintSize="512,396" sap2010:WorkflowViewState.IdRef="Sequence_18">
                                 <sap:WorkflowViewStateService.ViewState>
                                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                     <x:Boolean x:Key="IsPinned">False</x:Boolean>
                                   </scg:Dictionary>
                                 </sap:WorkflowViewStateService.ViewState>
-                                <If Condition="[CurrentRow_기준(&quot;과목&quot;).ToString = &quot;수학&quot;]" sap:VirtualizedContainerService.HintSize="530,516" sap2010:WorkflowViewState.IdRef="If_7">
+                                <If Condition="[CurrentRow_기준(&quot;과목&quot;).ToString = &quot;수학&quot;]" sap:VirtualizedContainerService.HintSize="450,311" sap2010:WorkflowViewState.IdRef="If_7">
                                   <If.Then>
-                                    <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="496,255" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                                    <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="416,22" sap2010:WorkflowViewState.IdRef="Sequence_16">
                                       <sap:WorkflowViewStateService.ViewState>
                                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                                           <x:Boolean x:Key="IsPinned">False</x:Boolean>
                                         </scg:Dictionary>
                                       </sap:WorkflowViewStateService.ViewState>
@@ -453,6 +568,12 @@
           </Sequence>
         </ActivityAction>
       </ui:ForEachRow.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
     </ui:ForEachRow>
   </Sequence>
 </Activity>

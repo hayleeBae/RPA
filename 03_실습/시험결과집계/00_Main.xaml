@@ -87,6 +87,7 @@
       <AssemblyReference>UiPath.Workflow</AssemblyReference>
       <AssemblyReference>WindowsBase</AssemblyReference>
       <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="_00_Main" sap:VirtualizedContainerService.HintSize="416,836" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -101,6 +102,8 @@
       <Variable x:TypeArguments="x:Int32" Name="pass_영어" />
       <Variable x:TypeArguments="x:Int32" Name="total_수학" />
       <Variable x:TypeArguments="x:Int32" Name="pass_수학" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_output" />
+      <Variable x:TypeArguments="scg:List(x:String)" Name="list_과목" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -125,6 +128,9 @@
         </OutArgument>
         <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_합격률">
           <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="dt_합격률" />
+        </OutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_output">
+          <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="dt_output" />
         </OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
@@ -157,38 +163,28 @@
         <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt_불합여부">
           <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="dt_불합여부" />
         </InOutArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_output">
+          <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="dt_output" />
+        </InArgument>
+        <OutArgument x:TypeArguments="scg:List(x:String)" x:Key="out_list_과목">
+          <VisualBasicReference x:TypeArguments="scg:List(x:String)" ExpressionText="list_과목" />
+        </OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="03_실습\시험결과집계\04_DT기록_불합여부.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="354,153" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="03_실습\시험결과집계\04_DT기록_불합여부.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_불합여부">
-          <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="dt_불합여부" />
-        </InArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_불합여부">[dt_불합여부]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="03_실습\시험결과집계\04_DT기록_합격률.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="354,136" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="03_실습\시험결과집계\04_DT기록_합격률.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="x:Int32" x:Key="in_total_국어">
-          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="total_국어" />
-        </InArgument>
-        <InArgument x:TypeArguments="x:Int32" x:Key="in_pass_국어">
-          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="pass_국어" />
-        </InArgument>
-        <InArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_합격률">
-          <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="dt_합격률" />
-        </InArgument>
-        <InArgument x:TypeArguments="x:Int32" x:Key="in_pass_영어">
-          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="pass_영어" />
-        </InArgument>
-        <InArgument x:TypeArguments="x:Int32" x:Key="in_total_영어">
-          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="total_영어" />
-        </InArgument>
-        <InArgument x:TypeArguments="x:Int32" x:Key="in_pass_수학">
-          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="pass_수학" />
-        </InArgument>
-        <InArgument x:TypeArguments="x:Int32" x:Key="in_total_수학">
-          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="total_수학" />
-        </InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="in_total_국어">[total_국어]</InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="in_pass_국어">[pass_국어]</InArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_합격률">[dt_합격률]</InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="in_pass_영어">[pass_영어]</InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="in_total_영어">[total_영어]</InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="in_pass_수학">[pass_수학]</InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="in_total_수학">[total_수학]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
   </Sequence>
