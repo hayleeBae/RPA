@@ -1,9 +1,19 @@
 해외카드사와의 정산을 위한 자료 (Billing.txt 파일을 활용할 것)
 
    - 문서의 내용을 읽어 들여서 "Reference Number"와 "Payment Amount"를 뽑아 별도 파일에 기록 (Billing Report.txt 파일 참조)
+	- read text file로 string 변수에 담기 -> string을 dt로 생성 -> dt를 다시 텍스트로 변경?(row별로 for문 돌면서 특정 문자 찾기)
+	- string 변수의 텍스트를 탭으로 구분이 가능한가? -> 바로는 불가능
+	- dt생성하면서 생긴 컬럼명 : Column(1-23) -> for문으로 컬럼별로 돌면서? 
+	- 숫자가 12자라인 데이터 전부 가져오면 -> reference number : ^[0-9]{12}\s
+	- $가 포함된 데이터를 전부 가져오면 -> payment amount
+
+System.Text.RegularExpressions.Regex.Match(CurrentRow_original("Column1").ToString.trim, "^[0-9]{12}\s") = true
 
    - 정상적 Payment가 아닌 경우 (두번째 컬럼에 ERROR CORRECTION으로 표시된 부분)을 제외한 나머지 payment amount의 합을 구함
+	- 에러이면 제외하는 조건문? sum 메소드 활용?
 
    - 위에서 구한 합이 밑의 TOTAL 란의 AMOUNT OF PAYMENTS의 숫자와 같은지 확인 (같아야 함)
+	- sum 결과 변수와 원본파일의 total값을 변수를 비교
+
 
    - 최종 Billing Report.txt가 만들어 지면 이 파일과 프로젝트 폴더를 압축하여 첨부 문서로 하여 메일 보낼 것

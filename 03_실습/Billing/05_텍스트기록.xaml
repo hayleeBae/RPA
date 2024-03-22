@@ -9,7 +9,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1208,1082</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1171,1082</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>_05_DT기록_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -46,6 +46,7 @@
       <x:String>UiPath.Excel.Activities</x:String>
       <x:String>System.Reflection</x:String>
       <x:String>System.Linq.Expressions</x:String>
+      <x:String>System.Numerics</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -101,13 +102,14 @@
       <AssemblyReference>System.Private.Uri</AssemblyReference>
       <AssemblyReference>System.Linq.Expressions</AssemblyReference>
       <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="_05_텍스트기록" sap:VirtualizedContainerService.HintSize="592,1017" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:Object" Name="strRowStart" />
+      <Variable x:TypeArguments="x:String" Name="strRowStart" />
       <Variable x:TypeArguments="x:String" Name="strRow_" />
-      <Variable x:TypeArguments="x:Object" Name="strRowEnd" />
+      <Variable x:TypeArguments="x:String" Name="strRowEnd" />
       <Variable x:TypeArguments="x:String" Name="strRowMid" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
@@ -128,10 +130,10 @@
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
             <ui:AssignOperation.To>
-              <OutArgument x:TypeArguments="x:Object">[strRowStart]</OutArgument>
+              <OutArgument x:TypeArguments="x:String">[strRowStart]</OutArgument>
             </ui:AssignOperation.To>
             <ui:AssignOperation.Value>
-              <InArgument x:TypeArguments="x:Object" xml:space="preserve">[in_dtReference.columns(0).ColumnName + "      " + in_dtReference.columns(1).ColumnName]</InArgument>
+              <InArgument x:TypeArguments="x:String" xml:space="preserve">[in_dtReference.columns(0).ColumnName.ToString + "      " + in_dtReference.columns(1).ColumnName.ToString]</InArgument>
             </ui:AssignOperation.Value>
           </ui:AssignOperation>
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
@@ -144,10 +146,10 @@
           </ui:AssignOperation>
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
             <ui:AssignOperation.To>
-              <OutArgument x:TypeArguments="x:Object">[strRowEnd]</OutArgument>
+              <OutArgument x:TypeArguments="x:String">[strRowEnd]</OutArgument>
             </ui:AssignOperation.To>
             <ui:AssignOperation.Value>
-              <InArgument x:TypeArguments="x:Object" xml:space="preserve">[in_dtTotal.columns(0).ColumnName + ":    $" + in_RefAmount.ToString + Environment.NewLine + "Ref. amount:     $" + in_TotalAmount.ToString + Environment.NewLine + in_dtTotal.columns(0).ColumnName + in_strEnd]</InArgument>
+              <InArgument x:TypeArguments="x:String" xml:space="preserve">[in_dtTotal.columns(0).ColumnName.ToString + ":    $" + in_RefAmount.ToString + Environment.NewLine + "Ref. amount:     $" + in_TotalAmount.ToString + Environment.NewLine + in_dtTotal.columns(0).ColumnName.ToString + in_strEnd]</InArgument>
             </ui:AssignOperation.Value>
           </ui:AssignOperation>
         </scg:List>
@@ -190,7 +192,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ForEachRow>
-    <ui:WriteTextFile File="{x:Null}" DisplayName="텍스트파일 기록 | Write Text File" FileName="00_파일\BillingReportFinal.txt" sap:VirtualizedContainerService.HintSize="530,173" sap2010:WorkflowViewState.IdRef="WriteTextFile_1" Text="[strRowStart.ToString + Environment.NewLine + &#xA;strRow_ + Environment.NewLine + &#xA;strRowMid +&#xA;strRow_ + Environment.NewLine +&#xA;strRowEnd.ToString]" />
+    <ui:WriteTextFile File="{x:Null}" DisplayName="텍스트파일 기록 | Write Text File" FileName="00_파일\BillingReportFinal.txt" sap:VirtualizedContainerService.HintSize="530,173" sap2010:WorkflowViewState.IdRef="WriteTextFile_1" Text="[strRowStart + Environment.NewLine + &#xD;&#xA;strRow_ + Environment.NewLine + &#xD;&#xA;strRowMid +&#xD;&#xA;strRow_ + Environment.NewLine +&#xD;&#xA;strRowEnd]" />
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="530,48" sap2010:WorkflowViewState.IdRef="LogMessage_1" Message="[&quot;텍스트 기록 종료&quot;]">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">

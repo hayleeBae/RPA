@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="_00_Main" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1208,901" sap2010:WorkflowViewState.IdRef="_00_Main_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="_00_Main" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1171,901" sap2010:WorkflowViewState.IdRef="_00_Main_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -33,6 +33,12 @@
       <x:String>System.ComponentModel</x:String>
       <x:String>System.Xml.Serialization</x:String>
       <x:String>System.Numerics</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -88,6 +94,15 @@
       <AssemblyReference>UiPath.Workflow</AssemblyReference>
       <AssemblyReference>WindowsBase</AssemblyReference>
       <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="_00_Main" sap:VirtualizedContainerService.HintSize="416,836" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -128,43 +143,21 @@
     </ui:InvokeWorkflowFile>
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="03_실습\Billing\04_DT가공.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="354,153" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="03_실습\Billing\04_DT가공.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtFilter">
-          <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="dtFilter" />
-        </InArgument>
-        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dtTotal">
-          <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="dtTotal" />
-        </InOutArgument>
-        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dtReference">
-          <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="dtReference" />
-        </InOutArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_strEnd">
-          <VisualBasicReference x:TypeArguments="x:String" ExpressionText="strEnd" />
-        </OutArgument>
-        <OutArgument x:TypeArguments="x:Double" x:Key="out_RefAmount">
-          <VisualBasicReference x:TypeArguments="x:Double" ExpressionText="RefAmount" />
-        </OutArgument>
-        <OutArgument x:TypeArguments="x:Double" x:Key="out_TotalAmount">
-          <VisualBasicReference x:TypeArguments="x:Double" ExpressionText="TotalAmount" />
-        </OutArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtFilter">[dtFilter]</InArgument>
+        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dtTotal">[dtTotal]</InOutArgument>
+        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dtReference">[dtReference]</InOutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_strEnd">[strEnd]</OutArgument>
+        <OutArgument x:TypeArguments="x:Double" x:Key="out_RefAmount">[RefAmount]</OutArgument>
+        <OutArgument x:TypeArguments="x:Double" x:Key="out_TotalAmount">[TotalAmount]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="03_실습\Billing\05_텍스트기록.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="354,136" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="03_실습\Billing\05_텍스트기록.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtReference">
-          <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="dtReference" />
-        </InArgument>
-        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtTotal">
-          <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="dtTotal" />
-        </InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_strEnd">
-          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="strEnd" />
-        </InArgument>
-        <InArgument x:TypeArguments="x:Double" x:Key="in_RefAmount">
-          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="RefAmount" />
-        </InArgument>
-        <InArgument x:TypeArguments="x:Double" x:Key="in_TotalAmount">
-          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="TotalAmount" />
-        </InArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtReference">[dtReference]</InArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtTotal">[dtTotal]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_strEnd">[strEnd]</InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="in_RefAmount">[RefAmount]</InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="in_TotalAmount">[TotalAmount]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
   </Sequence>
